@@ -12,7 +12,7 @@ module.exports = {
         title: 'JS基础',
         collapsable: false,
         children: [
-          '/js/scope',
+          '/js/context',
         ]
 			},
 			{
