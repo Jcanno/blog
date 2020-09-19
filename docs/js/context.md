@@ -73,7 +73,7 @@ FunctionExecutionContext = {
   LexicalEnvironment = { ... },     // 词法环境
   VariableEnvironment = {           // 变量环境
     EnvironmentRecord: {
-      Arguments: {0: 'hi', length: 21},
+      Arguments: {0: 'hi', length: 1},
       a: undefined
     },
     outer: GlobalEnvironmentRecord
@@ -83,7 +83,7 @@ FunctionExecutionContext = {
 
 ### 执行上下文
 
-上下文创建后，会执行该上下文中的逻辑，函数上下文里的变量会被赋值：
+上下文创建后，会执行该上下文中的逻辑，函数上下文里的变量a会被赋值：
 
 ```js
 FunctionExecutionContext = {
@@ -91,7 +91,7 @@ FunctionExecutionContext = {
   LexicalEnvironment = { ... },     // 词法环境
   VariableEnvironment = {           // 变量环境
     EnvironmentRecord: {
-      Arguments: {0: 'hi', length: 21},
+      Arguments: {0: 'hi', length: 1},
       a: 'hello'
     },
     outer: GlobalEnvironmentRecord

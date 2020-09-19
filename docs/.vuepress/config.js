@@ -15,6 +15,7 @@ module.exports = {
         collapsable: false,
         children: [
           '/js/context',
+          '/js/prototype'
         ]
 			},
 			{
