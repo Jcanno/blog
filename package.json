@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:build": "vuepress build docs",
+    "docs:dev": "vuepress dev docs",
+    "deploy": "sh deploy.sh"
   },
   "keywords": [],
   "author": "Jacano <641283231@qq.com> (https://github.com/Jcanno)",

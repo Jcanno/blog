@@ -1,6 +1,8 @@
 module.exports = {
   title: '前端体系',
-	description: '构建前端体系',
+  description: '构建前端体系',
+  base: '/blog/',
+  dest: 'dist',
 	themeConfig: {
     repo: 'Jcanno/blog',
     editLinks: true,
