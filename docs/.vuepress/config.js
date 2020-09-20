@@ -55,6 +55,13 @@ module.exports = {
         children: [
         ]
       },
+      {
+        title: '算法',
+        collapsable: true,
+        children: [
+          'math/sort'
+        ]
+      },
 		]
 	}
 }
