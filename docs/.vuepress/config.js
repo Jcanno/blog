@@ -12,10 +12,11 @@ module.exports = {
 		sidebar: [
       {
         title: 'JS基础',
-        collapsable: false,
+        collapsable: true,
         children: [
           '/js/context',
-          '/js/prototype'
+          '/js/prototype',
+          '/js/extend'
         ]
 			},
 			{
@@ -44,6 +45,12 @@ module.exports = {
 			},
 			{
         title: '浏览器原理',
+        collapsable: false,
+        children: [
+        ]
+      },
+      {
+        title: '手写JS方法',
         collapsable: false,
         children: [
         ]
