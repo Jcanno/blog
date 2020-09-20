@@ -60,7 +60,8 @@ module.exports = {
         collapsable: true,
         children: [
           'math/sort',
-          'math/fibonaic'
+          'math/fibonaic',
+          'math/deep'
         ]
       },
 		]
