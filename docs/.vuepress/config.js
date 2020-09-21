@@ -16,7 +16,8 @@ module.exports = {
         children: [
           '/js/context',
           '/js/prototype',
-          '/js/extend'
+          '/js/extend',
+          '/js/promise'
         ]
 			},
 			{
