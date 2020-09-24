@@ -19,6 +19,13 @@ module.exports = {
           '/js/extend',
           '/js/promise'
         ]
+      },
+      {
+        title: 'DOM',
+        collapsable: true,
+        children: [
+          '/dom/event'
+        ]
 			},
 			{
         title: 'CSS',
