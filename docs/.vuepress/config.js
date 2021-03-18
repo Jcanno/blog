@@ -67,6 +67,7 @@ module.exports = {
         title: '算法',
         collapsable: true,
         children: [
+          'math/stack',
           'math/sort',
           'math/fibonaic',
           'math/deep'
