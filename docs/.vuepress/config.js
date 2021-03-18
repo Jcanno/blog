@@ -68,6 +68,7 @@ module.exports = {
         collapsable: true,
         children: [
           'math/stack',
+          'math/queue',
           'math/sort',
           'math/fibonaic',
           'math/deep'
