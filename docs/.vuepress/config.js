@@ -70,6 +70,7 @@ module.exports = {
           'math/stack',
           'math/queue',
           'math/deque',
+          'math/linkedList',
           'math/sort',
           'math/fibonaic',
           'math/deep'
