@@ -69,6 +69,7 @@ module.exports = {
         children: [
           'math/stack',
           'math/queue',
+          'math/deque',
           'math/sort',
           'math/fibonaic',
           'math/deep'
