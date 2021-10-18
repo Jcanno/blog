@@ -49,7 +49,8 @@ module.exports = {
         title: '网络协议',
         collapsable: false,
         children: [
-          'net/history'
+          'net/history',
+          'net/domain'
         ]
 			},
 			{
