@@ -50,7 +50,8 @@ module.exports = {
         collapsable: false,
         children: [
           'net/history',
-          'net/domain'
+          'net/domain',
+          'net/request'
         ]
 			},
 			{
