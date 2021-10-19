@@ -51,7 +51,8 @@ module.exports = {
         children: [
           'net/history',
           'net/domain',
-          'net/request'
+          'net/request',
+          'net/negotiate'
         ]
 			},
 			{
