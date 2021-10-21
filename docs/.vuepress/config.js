@@ -52,7 +52,8 @@ module.exports = {
           'net/history',
           'net/domain',
           'net/request',
-          'net/negotiate'
+          'net/negotiate',
+          'net/https'
         ]
 			},
 			{
