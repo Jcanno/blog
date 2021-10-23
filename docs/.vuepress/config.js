@@ -54,7 +54,8 @@ module.exports = {
           'net/request',
           'net/negotiate',
           'net/https',
-          'net/http2'
+          'net/http2',
+          'net/http3'
         ]
 			},
 			{
