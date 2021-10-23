@@ -53,7 +53,8 @@ module.exports = {
           'net/domain',
           'net/request',
           'net/negotiate',
-          'net/https'
+          'net/https',
+          'net/http2'
         ]
 			},
 			{
