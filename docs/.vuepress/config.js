@@ -51,6 +51,7 @@ module.exports = {
         children: [
           'net/history',
           'net/domain',
+          'net/uri',
           'net/request',
           'net/negotiate',
           'net/https',
