@@ -53,6 +53,7 @@ module.exports = {
           'net/domain',
           'net/uri',
           'net/status',
+          'net/connection',
           'net/request',
           'net/negotiate',
           'net/https',
