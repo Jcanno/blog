@@ -54,6 +54,7 @@ module.exports = {
           'net/uri',
           'net/status',
           'net/connection',
+          'net/context-header',
           'net/request',
           'net/negotiate',
           'net/https',
