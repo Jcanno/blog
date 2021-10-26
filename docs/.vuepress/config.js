@@ -52,6 +52,7 @@ module.exports = {
           'net/history',
           'net/domain',
           'net/uri',
+          'net/body',
           'net/status',
           'net/connection',
           'net/context-header',
