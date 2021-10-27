@@ -20,4 +20,4 @@
 
 - 多段数据
 
-  浏览器通过**multipart/byteranges**可以实现多段数据请求，同时还要加上**boundary=xxx**进行分隔标记
+  浏览器通过**Range: bytes=0-50, 100-150**发起多段数据请求，服务端通过**multipart/byteranges**和**boundary=xxx**响应头进行相应

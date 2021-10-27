@@ -59,6 +59,7 @@ module.exports = {
           'net/context-header',
           'net/request',
           'net/negotiate',
+          'net/cookie',
           'net/https',
           'net/http2',
           'net/http3'
