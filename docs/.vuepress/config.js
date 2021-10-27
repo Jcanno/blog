@@ -60,6 +60,7 @@ module.exports = {
           'net/request',
           'net/negotiate',
           'net/cookie',
+          'net/same-origin',
           'net/https',
           'net/http2',
           'net/http3'
