@@ -29,25 +29,19 @@ module.exports = {
 			},
 			{
         title: 'CSS',
-        collapsable: false,
+        collapsable: true,
         children: [
         ]
 			},
 			{
         title: '工程化',
-        collapsable: false,
-        children: [
-        ]
-			},
-			{
-        title: '性能优化',
-        collapsable: false,
+        collapsable: true,
         children: [
         ]
 			},
 			{
         title: '网络协议',
-        collapsable: false,
+        collapsable: true,
         children: [
           'net/history',
           'net/domain',
@@ -61,20 +55,15 @@ module.exports = {
           'net/negotiate',
           'net/cookie',
           'net/same-origin',
+          'net/cache',
           'net/https',
           'net/http2',
           'net/http3'
         ]
 			},
-			{
-        title: '浏览器原理',
-        collapsable: false,
-        children: [
-        ]
-      },
       {
         title: '手写JS方法',
-        collapsable: false,
+        collapsable: true,
         children: [
         ]
       },
