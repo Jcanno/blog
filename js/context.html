@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>理解JavaScript中的执行上下文及执行栈 | 前端体系</title>
+    <meta name="generator" content="VuePress 1.5.3">
+    
+    <meta name="description" content="构建前端体系">
+    <link rel="preload" href="/blog/assets/css/0.styles.5dc057b1.css" as="style"><link rel="preload" href="/blog/assets/js/app.81b25017.js" as="script"><link rel="preload" href="/blog/assets/js/2.4f7509d9.js" as="script"><link rel="preload" href="/blog/assets/js/8.2d45abcc.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.b790c112.js"><link rel="prefetch" href="/blog/assets/js/11.011a1165.js"><link rel="prefetch" href="/blog/assets/js/12.23422935.js"><link rel="prefetch" href="/blog/assets/js/13.1647c125.js"><link rel="prefetch" href="/blog/assets/js/14.67ef1714.js"><link rel="prefetch" href="/blog/assets/js/15.77c6bf62.js"><link rel="prefetch" href="/blog/assets/js/16.928c2ea8.js"><link rel="prefetch" href="/blog/assets/js/17.1b8dad40.js"><link rel="prefetch" href="/blog/assets/js/18.0c228efd.js"><link rel="prefetch" href="/blog/assets/js/19.3660bc16.js"><link rel="prefetch" href="/blog/assets/js/20.252c7d16.js"><link rel="prefetch" href="/blog/assets/js/21.10f4872f.js"><link rel="prefetch" href="/blog/assets/js/22.588995b0.js"><link rel="prefetch" href="/blog/assets/js/23.3ddf763d.js"><link rel="prefetch" href="/blog/assets/js/24.b2e854ae.js"><link rel="prefetch" href="/blog/assets/js/25.66c255b6.js"><link rel="prefetch" href="/blog/assets/js/26.256a5d13.js"><link rel="prefetch" href="/blog/assets/js/27.d169b50c.js"><link rel="prefetch" href="/blog/assets/js/28.2f212e87.js"><link rel="prefetch" href="/blog/assets/js/29.ecaad5f1.js"><link rel="prefetch" href="/blog/assets/js/3.46ffae1f.js"><link rel="prefetch" href="/blog/assets/js/30.d0e12a42.js"><link rel="prefetch" href="/blog/assets/js/31.c43d231b.js"><link rel="prefetch" href="/blog/assets/js/32.34044761.js"><link rel="prefetch" href="/blog/assets/js/33.2b7fa511.js"><link rel="prefetch" href="/blog/assets/js/34.69cbcdb9.js"><link rel="prefetch" href="/blog/assets/js/35.20ba4f0b.js"><link rel="prefetch" href="/blog/assets/js/36.e76a2ae9.js"><link rel="prefetch" href="/blog/assets/js/4.3c66ba3a.js"><link rel="prefetch" href="/blog/assets/js/5.f0631bf8.js"><link rel="prefetch" href="/blog/assets/js/6.e8cf7e25.js"><link rel="prefetch" href="/blog/assets/js/7.2152afcf.js"><link rel="prefetch" href="/blog/assets/js/9.4d4f3d2d.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.5dc057b1.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><!----> <span class="site-name">前端体系</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"> <a href="https://github.com/Jcanno/blog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"> <a href="https://github.com/Jcanno/blog" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>JS基础</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/js/context.html" aria-current="page" class="active sidebar-link">理解JavaScript中的执行上下文及执行栈</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/blog/js/prototype.html" class="sidebar-link">JavaScript中的原型</a></li><li><a href="/blog/js/extend.html" class="sidebar-link">JavaScript 中的继承</a></li><li><a href="/blog/js/promise.html" class="sidebar-link">Promise</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>DOM</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CSS</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>工程化</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>网络协议</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>手写JS方法</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>算法</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="理解javascript中的执行上下文及执行栈"><a href="#理解javascript中的执行上下文及执行栈" class="header-anchor">#</a> 理解JavaScript中的执行上下文及执行栈</h1> <h3 id="什么上下文"><a href="#什么上下文" class="header-anchor">#</a> 什么上下文?</h3> <p>说到上下文，大家肯定对「请结合上下文理解这个词的含义」这句话不会陌生，笼统的讲上下文就是当前的环境，「同一个词」在不同上下文环境中会有不同的含义。编程的世界也是如此，如果你使用过Vue，那每一个Vue实例<code>vm</code>就可以看做是一个上下文，<code>vm</code>记录了当前<code>状态</code>、<code>模板</code>、<code>方法</code>、<code>父子组件实例</code>等所有的信息。</p> <h3 id="什么是执行上下文？"><a href="#什么是执行上下文？" class="header-anchor">#</a> 什么是执行上下文？</h3> <p>理解了上下文的含义，那执行上下文就是指<strong>JavaScript代码运行时所处的环境</strong>，这个环境记录了当前代码可以访问的所有信息比如参数、变量等。执行上下文还涉及到闭包、变量提升、作用域链等概念，可以说这是理解其他概念的基础。</p> <h3 id="执行上下文类型"><a href="#执行上下文类型" class="header-anchor">#</a> 执行上下文类型</h3> <p>在JavaScript中执行上下文的类型有三种:</p> <ul><li><p>全局执行上下文：在JavaScript程序中全局执行上下文有且只有一个，JavaScript程序运行时就会创建全局执行上下文，全局执行上下文会初始化<code>window</code>对象，<code>window</code>对象提供了<code>Math、Date</code>常用内置方法，创建全局执行上下文时还做了<code>this 绑定</code>的工作，在非严格模式下，全局执行上下文中的代码访问<code>this</code>实际就是<code>window对象</code>。</p></li> <li><p>函数执行上下文：每次函数被调用时就会创建函数执行上下文，提供函数中代码执行的环境。</p></li> <li><p>eval函数执行上下文：eval函数也会创建自己的上下文，当然平时用的不多。</p></li></ul> <h3 id="什么是执行栈？"><a href="#什么是执行栈？" class="header-anchor">#</a> 什么是执行栈？</h3> <p>执行栈就是来储存所有的执行上下文，是<code>先进后出</code>的栈结构</p> <h3 id="创建执行上下文"><a href="#创建执行上下文" class="header-anchor">#</a> 创建执行上下文</h3> <p>上面我们大概了解执行上下文相关概念，我们使用代码来解释执行上下文的创建过程。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'hi'</span>
+
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">arg</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'hello'</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token function">fn</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+</code></pre></div><p>JS引擎在执行代码时会创建全局执行上下文，创建上下文主要做了这三件事：</p> <ol><li>创建词法环境</li> <li>创建变量环境</li> <li>this绑定</li></ol> <p>用伪代码表示:</p> <div class="language-js extra-class"><pre class="language-js"><code>ExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> <span class="token operator">&lt;</span><span class="token keyword">this</span> value<span class="token operator">&gt;</span><span class="token punctuation">,</span>              <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 词法环境</span>
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>    <span class="token comment">// 变量环境</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在例子中初始时创建的全局上下文就是这样：</p> <div class="language-js extra-class"><pre class="language-js"><code>GlobalExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> window<span class="token punctuation">,</span>                    <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 词法环境</span>
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>           <span class="token comment">// 变量环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+      a<span class="token operator">:</span> <span class="token keyword">undefined</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    outer<span class="token operator">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>                                
+<span class="token punctuation">}</span>
+</code></pre></div><p>执行<code>fn</code>函数，则会创建函数上下文，同时将函数上下文压入执行栈的栈顶:</p> <div class="language-js extra-class"><pre class="language-js"><code>FunctionExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> global<span class="token punctuation">,</span>                    <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 词法环境</span>
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>           <span class="token comment">// 变量环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+      Arguments<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token operator">:</span> <span class="token string">'hi'</span><span class="token punctuation">,</span> length<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      a<span class="token operator">:</span> <span class="token keyword">undefined</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    outer<span class="token operator">:</span> GlobalEnvironmentRecord
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>                                
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="执行上下文"><a href="#执行上下文" class="header-anchor">#</a> 执行上下文</h3> <p>上下文创建后，会执行该上下文中的逻辑，函数上下文里的变量a会被赋值：</p> <div class="language-js extra-class"><pre class="language-js"><code>FunctionExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> global<span class="token punctuation">,</span>                    <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 词法环境</span>
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>           <span class="token comment">// 变量环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+      Arguments<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token operator">:</span> <span class="token string">'hi'</span><span class="token punctuation">,</span> length<span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+      a<span class="token operator">:</span> <span class="token string">'hello'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    outer<span class="token operator">:</span> GlobalEnvironmentRecord
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>                                
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="变量提升"><a href="#变量提升" class="header-anchor">#</a> 变量提升</h3> <p>用var命名的变量会存在变量提升的现象，这也是和执行上下文有关</p> <div class="language-js extra-class"><pre class="language-js"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>          <span class="token comment">// undefined</span>
+<span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'hi'</span>
+
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">arg</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'hello'</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token function">fn</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+</code></pre></div><p>这里在命名a变量前访问a能输出undefined，这是在创建全局上下文是默认给a变量的初始值:</p> <div class="language-js extra-class"><pre class="language-js"><code>GlobalExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> window<span class="token punctuation">,</span>                    <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 词法环境</span>
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>           <span class="token comment">// 变量环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+      a<span class="token operator">:</span> <span class="token keyword">undefined</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    outer<span class="token operator">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>                                
+<span class="token punctuation">}</span>
+</code></pre></div><p>因此<code>console.log(a)</code>访问的就是全局上下文中变量环境中的a变量，此时输出undefined，这就造成了变量提升现象</p> <p>ES6加入了<code>let</code>、<code>const</code>来取消这不合常理的变量提升，从我们的实践知道提前访问let定义的变量会报错，那<code>let</code>、<code>const</code>又是如何结合上下文实现这功能，其实我们看到上下文中还有词法环境没有用到，它就是用来存放<code>let</code>、<code>const</code>定义的变量</p> <div class="language-js extra-class"><pre class="language-js"><code>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>          <span class="token comment">// undefined</span>
+<span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'hi'</span>
+<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token string">'world'</span>
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token parameter">arg</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token string">'hello'</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token function">fn</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span>
+</code></pre></div><p>此时创建全局上下文为：</p> <div class="language-js extra-class"><pre class="language-js"><code>GlobalExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> window<span class="token punctuation">,</span>                    <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>            <span class="token comment">// 词法环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+      b<span class="token operator">:</span> uninitialized              <span class="token comment">// 未初始化</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>     
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>           <span class="token comment">// 变量环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+      a<span class="token operator">:</span> <span class="token keyword">undefined</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    outer<span class="token operator">:</span> <span class="token keyword">null</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>                                
+<span class="token punctuation">}</span>
+</code></pre></div><p>此时变量b未初始化，访问b时就会出现<code>暂时性死区</code></p> <h3 id="作用域链"><a href="#作用域链" class="header-anchor">#</a> 作用域链</h3> <p>上下文对象会保存外部环境的环境记录，供当前上下文对象访问，全局上下文外部环境为null，函数上下文外部环境为外部上下文的环境记录，由此就形成当前函数上下文环境记录-&gt;外部上下文环境记录-&gt;全局上下文环境记录的作用域链，函数在执行过程中就是按照作用域链一次查找变量。</p> <h3 id="闭包"><a href="#闭包" class="header-anchor">#</a> 闭包</h3> <p>执行上下文还跟闭包有关，从实践的角度来看，我总结闭包为<code>内部函数引用了外部函数的变量，并被外部函数返回，这被引用的变量就是闭包</code>。</p> <div class="language-js extra-class"><pre class="language-js"><code>
+<span class="token keyword">function</span> <span class="token function">outer</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span>
+
+  <span class="token keyword">function</span> <span class="token function">inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> a<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> inner
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> inner <span class="token operator">=</span> <span class="token function">outer</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token function">inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>              <span class="token comment">// 1</span>
+<span class="token function">inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>              <span class="token comment">// 2</span>
+<span class="token function">inner</span><span class="token punctuation">(</span><span class="token punctuation">)</span>              <span class="token comment">// 3</span>
+</code></pre></div><p>这里的函数上下文关系为:</p> <div class="language-js extra-class"><pre class="language-js"><code>OuterFunctionExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> global<span class="token punctuation">,</span>                    <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 词法环境</span>
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>           <span class="token comment">// 变量环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+      a<span class="token operator">:</span> <span class="token number">1</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    outer<span class="token operator">:</span> GlobalEnvironmentRecord
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>                                
+<span class="token punctuation">}</span>
+
+InnerFunctionExecutionContext <span class="token operator">=</span> <span class="token punctuation">{</span>
+  This <span class="token operator">=</span> global<span class="token punctuation">,</span>                    <span class="token comment">// this 绑定值</span>
+  LexicalEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>     <span class="token comment">// 词法环境</span>
+  VariableEnvironment <span class="token operator">=</span> <span class="token punctuation">{</span>           <span class="token comment">// 变量环境</span>
+    EnvironmentRecord<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    outer<span class="token operator">:</span> OuterFunctionEnvironmentRecord
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>                                
+<span class="token punctuation">}</span>
+</code></pre></div><p>在执行完outer函数后，a变量应该被回收，但却被内部函数inner引用，inner函数又被outer返回，这就形成了闭包，inner在执行<code>a++</code>语句查找a变量就是在outer的环境记录里查找，此时outer环境记录已被销毁，因此a变量被存储到闭包中<code>Closure (outer){ a: 1 }</code>。</p> <p>闭包使用场景：可以通过闭包来封装私有变量</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/Jcanno/blog/edit/master/docs/js/context.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">9/19/2020, 6:59:00 PM</span></div></footer> <div class="page-nav"><p class="inner"><!----> <span class="next"><a href="/blog/js/prototype.html">
+        JavaScript中的原型
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/blog/assets/js/app.81b25017.js" defer></script><script src="/blog/assets/js/2.4f7509d9.js" defer></script><script src="/blog/assets/js/8.2d45abcc.js" defer></script>
+  </body>
+</html>
