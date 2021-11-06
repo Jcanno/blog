@@ -24,7 +24,8 @@ module.exports = {
         title: 'DOM',
         collapsable: true,
         children: [
-          '/dom/event'
+          '/dom/event',
+          '/dom/script-position'
         ]
 			},
 			{
