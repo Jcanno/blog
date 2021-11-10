@@ -40,6 +40,13 @@ module.exports = {
         children: [
         ]
 			},
+      {
+        title: 'Linux',
+        collapsable: true,
+        children: [
+          'linux/history'
+        ]
+			},
 			{
         title: '网络协议',
         collapsable: true,
