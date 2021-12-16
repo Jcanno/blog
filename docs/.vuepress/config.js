@@ -87,7 +87,7 @@ module.exports = {
           'math/sort',
           'math/fibonaic',
           'math/deep',
-          'math/heep'
+          'math/heap'
         ]
       },
 		]
