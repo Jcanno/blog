@@ -86,7 +86,8 @@ module.exports = {
           'math/doubleLinkedList',
           'math/sort',
           'math/fibonaic',
-          'math/deep'
+          'math/deep',
+          'math/heep'
         ]
       },
 		]
