@@ -17,7 +17,8 @@ module.exports = {
           '/js/context',
           '/js/prototype',
           '/js/extend',
-          '/js/promise'
+          '/js/promise',
+          '/js/setTimeout'
         ]
       },
       {
