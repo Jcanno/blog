@@ -29,6 +29,14 @@ module.exports = {
           '/dom/script-position'
         ]
 			},
+      {
+        title: 'Web Api',
+        collapsable: true,
+        children: [
+          '/webApi/setTimeout',
+          '/webApi/requestAnimationFrame'
+        ]
+			},
 			{
         title: 'CSS',
         collapsable: true,

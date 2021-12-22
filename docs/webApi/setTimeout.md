@@ -46,7 +46,10 @@ setTimeout(myArray.myMethod, 1.0 * 1000) // prints "[object Window]" after 1 sec
 setTimeout(myArray.myMethod, 1.5 * 1000, "1") // prints "undefined" after 1.5 seconds
 ```
 
-从执行栈及事件循环的角度理解 setTimeout this 绑定，当执行 setTimeout 时，会向延迟队列中注册一个延迟任务，当时间满足时被推入回调队列中，若当前 JS 引擎处于空闲状态，JS 事件循环(Event Loop)会将回调函数交给 JS 引擎，JS 引擎根据函数生成函数上下文执行栈，推入 JS 引擎的执行栈中，此时函数 this 若没有特殊绑定，则默认指向 window，其上下文执行栈 this 默认绑定 window。
+两方面理解 setTimeout this 绑定
+
+- setTimeout 是全局对象 window 或 global 上的方法，通常指向 window 对象。
+- 从执行栈及事件循环的角度理解 setTimeout this 绑定，当执行 setTimeout 时，会向延迟队列中注册一个延迟任务，当时间满足时被推入回调队列中，JS 事件循环(Event Loop)会检查 JS 引擎执行栈是否为空并且是否有回调任务，若当前 JS 引擎处于空闲状态，将回调函数交给 JS 引擎，JS 引擎根据函数生成函数上下文执行栈，推入 JS 引擎的执行栈中，此时函数 this 若没有特殊绑定，则默认指向 window，其上下文执行栈 this 默认绑定 window。
 
 ### 嵌套 setTimeout 最小时间间隔
 
